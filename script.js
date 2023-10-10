@@ -74,21 +74,29 @@ function salvarEdicao(id){
     //exbindo os botões de eidtar e excluir 
     spanBtns.style.display = 'flex'
 }
-let statusi = true
+
 function feita(id){
-    if(statusi == true){
+    let checkboxValue = true
+
+    //pega o elemento div e input em especifico atraves do id 
     let idDiv = `#i${id}`
-    let input = document.querySelector(`${idDiv}`)
-    input.style.opacity = '60%'
-    console.log(input) 
-    statusi = false
-    }else if(statusi == false){
-        let idDiv = `#i${id}`
-        let input = document.querySelector(`${idDiv}`)
-        input.style.opacity = '100%'
-        console.log(input) 
-        statusi = true
+    let inp = `#in${id}`
+    let div = document.querySelector(`${idDiv}`)
+    let input = document.querySelector(`${inp}`)
+    
+    //adiciona o valor atual do input para dentro da variavel checkboxValue
+    checkboxValue = input.value
+    //verifica se o valor atual do input é true 
+    if(checkboxValue == 'true'){
+    div.style.opacity = '50%'//deica a div meio apagada
+    checkboxValue = false//inverte o valor da variavel 
+    input.value = `${checkboxValue}`//adiciona o valor invertido da variavel no input, para na proxima ele tirar o estilo da div
+    }else if(checkboxValue == 'false'){
+        div.style.opacity = '100%'
+        checkboxValue = true
+        input.value = `${checkboxValue}`
     }
+
 }
 function createItem(txt){
     // função que entrega um numero aliatorio de 0 a 100 que usamos ele para ser o id dos objetos criados dinamicamente 
@@ -97,12 +105,15 @@ function createItem(txt){
     //criação da div principal, aonde todos outros itrem criados vao ficar posicionado dentro dela 
     let div = document.createElement('div')
     div.setAttribute('id', `i${id}`)
-   
+    
     //criação da bolinha de cheque
+    let checkboxValueInicial = true//variavel que vai permitir no futuro varificar se foi concluida ou nao, por padrão ela começa nao complida
     let inputRadio = document.createElement('input')
-    inputRadio.setAttribute('type','radio')
-    inputRadio.setAttribute('value', `${id}`)
-    inputRadio.setAttribute('onclick', `feita(${inputRadio.value},)`)
+    inputRadio.setAttribute('type','checkbox')
+    inputRadio.setAttribute('id', `in${id}`)
+    inputRadio.setAttribute('name', `${id}`)
+    inputRadio.setAttribute('value', `${checkboxValueInicial}`)
+    inputRadio.setAttribute('onclick', `feita(${inputRadio.name})`)
     div.appendChild(inputRadio)
 
     //criação da do elemento que vai amazerna o texto da tarefa 
