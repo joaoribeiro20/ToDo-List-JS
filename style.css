@@ -99,6 +99,56 @@ button:hover{
     width: 15vh;
 }
 
+@media (max-width: 500px) {
+    main{
+    
+        background-color: rgb(110, 201, 253);
+        color: aliceblue;
+        margin-top:15%;
+        display: flex;
+        width: 45vh;
+        height: 60vh;
+        font-size: 10px;
+        flex-direction: column;
+        border-radius: 25px;
+        -webkit-box-shadow: 14px 17px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 14px 17px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 14px 17px 5px 0px rgba(0,0,0,0.75);
+    overflow: auto;
+        
+    }
+
+    #inputInfo > input{
+        border-radius: 15px;
+        border: 0vh;
+        padding: 1vh;
+        width: 125px;
+        margin-left: 7vh;
+        
+    }
+
+    #areaTarefa > div{
+        background-color: rgb(255, 255, 255);
+        border-radius: 25px;
+        font-size: 9px;
+        padding: 1vh;
+        margin-top: 3vh;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        color: black;
+        min-width: 150px;
+        max-width: 100px;
+        
+    }
+    #areaTarefa > {
+        
+        
+    }
+}
+
 
 
 
