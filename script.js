@@ -4,7 +4,9 @@ let areaTarefa = document.querySelector('#areaTarefa')
 let arrayTarefas = []
 
 btnADD.addEventListener('click', ()=>{
-    if(inputTarefa.value != ''){
+    
+    let tarefa = inputTarefa.value
+    if(inputTarefa.value != '' ){
     createItem(inputTarefa.value)
     inputTarefa.value = ''
     inputTarefa.focus()
@@ -56,7 +58,9 @@ function salvarEdicao(id){
     //pegando o a caixa de edicao 
     let inputEditar = document.querySelector(`#e${id}`)
     //pegando a nova tarefa apos ser editada e salvando dentro da array com o mesmo id de antes
-    arrayTarefas[id] = inputEditar.value
+    let tarefaEditada = inputEditar.value
+    if(tarefaEditada.length <=20){
+         arrayTarefas[id] = inputEditar.value
     div.removeChild(inputEditar)
 
     //pegando o botão para esonder ele depois 
@@ -73,8 +77,11 @@ function salvarEdicao(id){
     labelTarefa1.style.display = 'flex'
     //exbindo os botões de eidtar e excluir 
     spanBtns.style.display = 'flex'
+    }else{
+        alert('tamanho do texto atualizado muito grande')
+    }
+   
 }
-
 function feita(id){
     let checkboxValue = true
 
@@ -117,8 +124,9 @@ function createItem(txt){
     div.appendChild(inputRadio)
 
     //criação da do elemento que vai amazerna o texto da tarefa 
-    let label = document.createElement('label')
+    let label = document.createElement('p')
     label.setAttribute('id', `L${id}`)
+    label.setAttribute('class', `tarefaDinamica`)
     //adicionado dentro de um array a tarefa, o id serve para escolhermos o indece quie vai 
     //ser amazernado para no futuro poder alterar a string dentro desse id
     arrayTarefas[id]= txt

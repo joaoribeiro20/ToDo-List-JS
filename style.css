@@ -3,20 +3,80 @@ body{
    justify-content: center;
    margin: 0%;
    padding: 0%;
-   background-color: rgb(241, 243, 113);
+   background-color: #FFF2A6;
 }
-main{
-    
-    background-color: rgb(110, 201, 253);
-    color: aliceblue;
-    margin-top:5%;
-    display: flex;
-    width: 50vh;
-    height: 60vh;
-    
-    flex-direction: column;
+#todoList{
+    background-color: #A8DAE5;
+    margin-top: 25vh;
+    padding: 3vh;
     border-radius: 25px;
+    max-width: 40vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     -webkit-box-shadow: 14px 17px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 14px 17px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 14px 17px 5px 0px rgba(0,0,0,0.75);
+}
+
+#areaTarefa{
+    display: flex;
+    flex-direction: column;
+    max-height: 40vh;
+    overflow-y: auto;  
+}
+ ::-webkit-scrollbar{
+    background-color:#A8DAE5;
+    width: 1px;
+
+}
+::-webkit-scrollbar-thumb{
+background-color: #A8DAE5;
+height: 1px;
+
+} 
+#areaTarefa > div{
+  margin-top: 2vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.tarefaDinamica{
+    min-width: 25vh;
+    max-width: 25vh;
+}
+button{
+    background-color: #A8DAE5;
+    border: 0px;
+    border-radius: 60px;
+}
+button:hover{
+    background-color: #FFF2A6;
+    border: 0px;
+}
+input{
+    background-color: #A8DAE5;
+    border-radius: 15px;
+    border: #A8DAE5;
+   
+}
+
+
+
+
+
+
+
+/* main{
+    background-color: #0799f5;
+   
+
+    border-radius: 25px;
+-webkit-box-shadow: 14px 17px 5px 0px rgba(0,0,0,0.75);
 -moz-box-shadow: 14px 17px 5px 0px rgba(0,0,0,0.75);
 box-shadow: 14px 17px 5px 0px rgba(0,0,0,0.75);
 overflow: auto;
@@ -62,7 +122,7 @@ height: 2px;
 
 
 */
-#areaTarefa{
+/* #areaTarefa{
     display: flex;
     flex-direction: column;
     
@@ -102,15 +162,7 @@ button:hover{
 @media (max-width: 500px) {
     main{
     
-        background-color: rgb(110, 201, 253);
-        color: aliceblue;
-        margin-top:15%;
-        display: flex;
-        width: 45vh;
-        height: 60vh;
-        font-size: 10px;
-        flex-direction: column;
-        border-radius: 25px;
+       
         -webkit-box-shadow: 14px 17px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 14px 17px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 14px 17px 5px 0px rgba(0,0,0,0.75);
@@ -147,7 +199,7 @@ button:hover{
         
         
     }
-}
+} */    
 
 
 
