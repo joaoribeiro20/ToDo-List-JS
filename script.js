@@ -2,9 +2,8 @@ let inputTarefa = document.querySelector('#inputTarefa')
 let btnADD = document.querySelector('#btnADD')
 let areaTarefa = document.querySelector('#areaTarefa')
 let arrayTarefas = []
-
+let idLocalStorage = 0
 btnADD.addEventListener('click', ()=>{
-    
     let tarefa = inputTarefa.value
     if(inputTarefa.value != '' ){
     createItem(inputTarefa.value)
@@ -17,6 +16,8 @@ btnADD.addEventListener('click', ()=>{
 function excluir(id){
     console.log(id)
     let idDiv = `#i${id}`
+    let txt = `#L${id}`
+    
     let divExcluida = document.querySelector(`${idDiv}`)
     areaTarefa.removeChild(divExcluida) 
 }
@@ -74,6 +75,7 @@ function salvarEdicao(id){
 
     //pegando dentro do array atraves do id a tarefa editada e exibindo 
     labelTarefa1.innerText =  arrayTarefas[id]
+    labelTarefa1.setAttribute('value',`${arrayTarefas[id]}`)
     labelTarefa1.style.display = 'flex'
     //exbindo os botões de eidtar e excluir 
     spanBtns.style.display = 'flex'
@@ -108,7 +110,7 @@ function feita(id){
 function createItem(txt){
     // função que entrega um numero aliatorio de 0 a 100 que usamos ele para ser o id dos objetos criados dinamicamente 
     let id=idR()
-
+    
     //criação da div principal, aonde todos outros itrem criados vao ficar posicionado dentro dela 
     let div = document.createElement('div')
     div.setAttribute('id', `i${id}`)
@@ -127,6 +129,7 @@ function createItem(txt){
     let label = document.createElement('p')
     label.setAttribute('id', `L${id}`)
     label.setAttribute('class', `tarefaDinamica`)
+    label.setAttribute('value', `${txt}`)
     //adicionado dentro de um array a tarefa, o id serve para escolhermos o indece quie vai 
     //ser amazernado para no futuro poder alterar a string dentro desse id
     arrayTarefas[id]= txt
@@ -161,4 +164,23 @@ function idR(){
    // return Math.random() * 20;
     return parseInt(Math.random() * 100)
 }
-function localStoregSalvar(){}
+function localStoregSalvar(){
+ 
+}
+function  localStoregSalvar(){
+    // Converter o array em uma string JSON
+const arrayString = JSON.stringify(array);
+
+// Armazenar a string no Local Storage com uma chave
+localStorage.setItem('dbTarefa', arrayString);
+}
+function recupararLocal(array){
+// Recuperar a string do Local Storage
+const arrayString = localStorage.getItem('dbTarefa');
+
+// Converter a string de volta para um array JavaScript
+const meuArrayRecuperado = JSON.parse(arrayString);
+
+console.log(meuArrayRecuperado);
+}
+window.onload = localStoregSalvar()
