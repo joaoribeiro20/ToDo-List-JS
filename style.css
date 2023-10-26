@@ -5,6 +5,11 @@ body{
    padding: 0%;
    background-color: #FFF2A6;
 }
+span{
+    display: flex;
+    align-items: center;
+    
+}
 #todoList{
     background-color: #A8DAE5;
     margin-top: 25vh;
