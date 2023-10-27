@@ -25,49 +25,75 @@ function recupararLocal() {
 
     for (let i = 0; i <= arrayTarefasLocal.length - 1; i++) {
       
-        createItem(arrayTarefasLocal[i].tarefa, arrayTarefasLocal[i].id)
+        newComponets(arrayTarefasLocal[i].tarefa, arrayTarefasLocal[i].id)
     }
  }
 }
 btnADD.addEventListener('click', () => {
-
     if (inputTarefa.value != '') {
-        
         idLocalStorage = arrayTarefasLocal.length 
-        console.log(arrayTarefasLocal)
-        criar(inputTarefa.value, idLocalStorage + 1)
-        localStoregSalvarA(inputTarefa.value, idLocalStorage + 1)
+        criar(inputTarefa.value, idLocalStorage )
         inputTarefa.value = ''
         inputTarefa.focus()
-
     } else {
         alert('adicione um texto dentro na area recomendada')
     }
 
 })
-function excluir(eid) {
+function excluir(elementId) {
     
-    let div = document.querySelector(`#d${eid}`)
+    let div = document.querySelector(`#d${elementId}`)
 
-    const found = arrayTarefasLocal.find((element) => element.id == eid);
+    const found = arrayTarefasLocal.find((element) => element.id == elementId);
     let pos = arrayTarefasLocal.indexOf(found) 
     arrayTarefasLocal.splice(pos, 1);
     console.log(arrayTarefasLocal)
     localStorage.removeItem("dbTarefa");
-    // Converter o array em uma string JSON
-    const arrayString = JSON.stringify(arrayTarefasLocal);
-    // Armazenar a string no Local Storage com uma chave
-    localStorage.setItem('dbTarefa', arrayString);
+    salvarLocal(arrayTarefasLocal)
     areaTarefa.removeChild(div) 
 }
 function criar(tarefa,novoId){
-    const found = arrayTarefasLocal.find((element) => element.id == 55);
-    let pos = arrayTarefasLocal.indexOf(found) 
-    if(pos == -1){
-        createItem(tarefa, novoId)
-    }else{
+    let pos
+    let idNovo = 0
+    
+       const found = arrayTarefasLocal.find((element) => element.id == novoId);
+       pos = arrayTarefasLocal.indexOf(found)  
+       if(pos == -1){
+        newComponets(tarefa, novoId)
+        localStoregSalvarA(tarefa, novoId) 
+       }else{
         alert('id duplicado')
+        while(pos != -1){
+            console.log(`buscando id disponivel: ${idNovo}`)
+            const found = arrayTarefasLocal.find((element) => element.id == idNovo);
+            pos = arrayTarefasLocal.indexOf(found) 
+            if(pos == -1)
+            {
+                alert('encontrou um id que nao eiste')
+                newComponets(tarefa, idNovo)
+                localStoregSalvarA(tarefa, idNovo) 
+
+            }else{
+                idNovo = idNovo + 1
+            }
+        }
+
+       }
+      
+    while(pos != -1){
+        const found = arrayTarefasLocal.find((element) => element.id == idNovo);
+        pos = arrayTarefasLocal.indexOf(found) 
+        if(pos == -1)
+        {
+            newComponets(tarefa, idNovo)
+            localStoregSalvarA(tarefa, idNovo) 
+        }else{
+            idNovo = idNovo + 1
+        }
     }
+    
+
+
 }
 function editar(id) {
     const found = arrayTarefasLocal.find((element) => element.id == id);
@@ -77,11 +103,13 @@ function editar(id) {
     let inputEditar = document.createElement('input')
     inputEditar.setAttribute('class','inputEdicao')
     let btnSalvarAlteracao = document.createElement('button')
+    btnSalvarAlteracao.setAttribute('class','btnEdicao')
     btnSalvarAlteracao.innerText = 'salvar'
     
     let divTarefa = document.querySelector(`#d${id}`)
     let label = document.querySelector(`#l${id}`)
     let areabtn = document.querySelector(`#s${id}`)
+    
     areabtn.style.display = 'none'
     label.style.display = 'none'
     divTarefa.appendChild(inputEditar)
@@ -95,31 +123,28 @@ function editar(id) {
 
 }
 function salvarEdicao(id) {
-     let divTarefa = document.querySelector(`#d${arrayTarefasLocal[id].id}`)
+    let divTarefa = document.querySelector(`#d${arrayTarefasLocal[id].id}`)
+
     let label = document.querySelector(`#l${arrayTarefasLocal[id].id}`)
     let areabtn = document.querySelector(`#s${arrayTarefasLocal[id].id}`)
-    let input = document.querySelector(`#d${arrayTarefasLocal[id].id} .inputEdicao`).value
-    let btn = document.querySelector(`#d${arrayTarefasLocal[id].id} button`)
-    arrayTarefasLocal[id].tarefa = input
+    let input = document.querySelector(`#d${arrayTarefasLocal[id].id} .inputEdicao`)
+    let btn = document.querySelector(`#d${arrayTarefasLocal[id].id} .btnEdicao`)
+    arrayTarefasLocal[id].tarefa = input.value
     console.log(arrayTarefasLocal)
-    localStorage.removeItem("dbTarefa");
-    // Converter o array em uma string JSON
-    const arrayString = JSON.stringify(arrayTarefasLocal);
-    // Armazenar a string no Local Storage com uma chave
-    localStorage.setItem('dbTarefa', arrayString);
 
-    areaTarefa.removeChild(divTarefa)
-    idLocalStorage = arrayTarefasLocal.length 
-    criar(arrayTarefasLocal[id].tarefa,idLocalStorage+1)
+    localStorage.removeItem("dbTarefa");
+    salvarLocal(arrayTarefasLocal)
+    //areaTarefa.removeChild(divTarefa)
+ 
     
-    //label.innerText = input
-  /*   console.log(divTarefa)
+    label.innerText = input.value
+    console.log(btn)
     divTarefa.removeChild(input)
     divTarefa.removeChild(btn)
     
 
     areabtn.style.display = 'flex'
-    label.style.display = 'flex */
+    label.style.display = 'flex'
 
 
 
@@ -147,7 +172,7 @@ function feita(id) {
 
 }
 
-function createItem(txt, id) {
+function newComponets(txt, id) {
 
     // função que entrega um numero aliatorio de 0 a 100 que usamos ele para ser o id dos objetos criados dinamicamente 
     //let id=idR()
@@ -206,13 +231,15 @@ function localStoregSalvarA(tarefa, id) {
             tarefa: tarefa,
             id: id
         })
+        salvarLocal(arrayTarefasLocal)
 
-    // Converter o array em uma string JSON
-    const arrayString = JSON.stringify(arrayTarefasLocal);
+}
+function salvarLocal(array){
+     // Converter o array em uma string JSON
+     const arrayString = JSON.stringify(array);
 
-    // Armazenar a string no Local Storage com uma chave
-    localStorage.setItem('dbTarefa', arrayString);
-
+     // Armazenar a string no Local Storage com uma chave
+     localStorage.setItem('dbTarefa', arrayString);
 }
 
 window.onload = recupararLocal()

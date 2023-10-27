@@ -53,6 +53,7 @@ height: 1px;
 .tarefaDinamica{
     min-width: 25vh;
     max-width: 25vh;
+    margin-left: 2vh;
 }
 button{
     background-color: #A8DAE5;
